@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ella Konan · Ingénieure IA</title>
+  <meta name="description" content="Portfolio d'Ella Konan, ingénieure IA : fine-tuning de LLM, RAG, machine learning et mise en production.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f7f5;
+      --surface: #ffffff;
+      --text: #1c1c1f;
+      --muted: #5f6068;
+      --border: #e4e4e0;
+      --accent: #2f5bd3;
+      --accent-soft: #e8eefc;
+      --highlight: #0f7a55;
+      --highlight-soft: #e3f4ec;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #121315;
+        --surface: #1b1c1f;
+        --text: #ececee;
+        --muted: #a3a4ab;
+        --border: #2c2d31;
+        --accent: #8aa8ff;
+        --accent-soft: #1f2840;
+        --highlight: #5fd3a2;
+        --highlight-soft: #16302a;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+
+    header { padding: 72px 0 40px; }
+    .name { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
+    .role { font-size: 1.15rem; color: var(--accent); font-weight: 600; margin: 6px 0 18px; }
+    .intro { max-width: 680px; color: var(--muted); font-size: 1.05rem; margin: 0 0 24px; }
+    .links { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 16px; border-radius: 8px; font-weight: 500; font-size: 0.95rem;
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+    }
+    .btn:hover { border-color: var(--accent); text-decoration: none; }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+
+    section { padding: 32px 0; }
+    h2 {
+      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--muted); font-weight: 600; margin: 0 0 20px;
+    }
+
+    .project {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+      padding: 24px; margin-bottom: 18px;
+    }
+    .project.featured { border-color: var(--accent); }
+    .project-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
+    .project h3 { margin: 0; font-size: 1.2rem; letter-spacing: -0.01em; }
+    .tag {
+      font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+      background: var(--accent-soft); color: var(--accent); white-space: nowrap;
+    }
+    .project p { margin: 10px 0 0; color: var(--muted); }
+    .result {
+      margin: 14px 0 0; padding: 10px 14px; border-radius: 8px;
+      background: var(--highlight-soft); color: var(--highlight); font-weight: 600; font-size: 0.95rem;
+    }
+    .project ul { margin: 12px 0 0; padding-left: 20px; color: var(--muted); }
+    .project li { margin: 4px 0; }
+    .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
+    .chip {
+      font-size: 0.78rem; padding: 3px 9px; border-radius: 6px;
+      border: 1px solid var(--border); color: var(--muted);
+    }
+    .project-links { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; font-weight: 500; font-size: 0.95rem; }
+
+    .timeline-item {
+      display: grid; grid-template-columns: 170px 1fr; gap: 16px;
+      padding: 16px 0; border-top: 1px solid var(--border);
+    }
+    .timeline-item:first-of-type { border-top: none; padding-top: 0; }
+    .when { color: var(--muted); font-size: 0.9rem; }
+    .what h3 { margin: 0; font-size: 1.05rem; }
+    .what p { margin: 4px 0 0; color: var(--muted); }
+
+    .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+    .skill-group { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+    .skill-group h3 { margin: 0 0 8px; font-size: 0.95rem; }
+    .skill-group p { margin: 0; color: var(--muted); font-size: 0.93rem; }
+
+    footer { padding: 40px 0 56px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--border); margin-top: 24px; }
+
+    @media (max-width: 600px) {
+      header { padding: 48px 0 28px; }
+      .project { padding: 18px; }
+      .timeline-item { grid-template-columns: 1fr; gap: 4px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <header>
+      <h1 class="name">Ella Konan</h1>
+      <p class="role">Ingénieure IA · Deep learning et LLM</p>
+      <p class="intro">
+        Diplômée d'un master en Big Data et Intelligence Artificielle (ESTIA), je conçois des modèles
+        de la préparation des données jusqu'à la mise en production. Je m'intéresse particulièrement
+        à l'entraînement des modèles de langage et à leur évaluation rigoureuse.
+      </p>
+      <div class="links">
+        <a class="btn primary" href="https://github.com/ellakonan41">GitHub</a>
+        <a class="btn" href="#projets">Projets</a>
+        <a class="btn" href="#parcours">Parcours</a>
+      </div>
+    </header>
+
+    <section id="projets">
+      <h2>Projets</h2>
+
+      <article class="project featured">
+        <div class="project-head">
+          <h3>Anonymisation RGPD de textes par fine-tuning d'un LLM</h3>
+          <span class="tag">LLM · SFT · DPO</span>
+        </div>
+        <p>
+          Entraîner un petit modèle de langage (Qwen2.5-0.5B) à masquer les données personnelles
+          (noms, téléphones, adresses) dans des textes français, en local, pour ne jamais exposer
+          de données sensibles à un service externe.
+        </p>
+        <div class="result">97 % des données personnelles masquées sur des textes réalistes, contre 25 % avant entraînement</div>
+        <ul>
+          <li>Préparation de 90 000 exemples et conception de métriques sur mesure (protection, préservation, fidélité du texte).</li>
+          <li>Fine-tuning SFT avec LoRA, en n'entraînant que 1,75 % des paramètres, sur GPU.</li>
+          <li>Jeu de test de 50 textes réalistes (médical, RH, administratif) pour mesurer la généralisation.</li>
+          <li>Alignement DPO, puis analyse des sorties : une sur-optimisation détectée conduit à retenir le modèle le plus fiable.</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">PyTorch</span><span class="chip">transformers</span><span class="chip">trl</span>
+          <span class="chip">peft / LoRA</span><span class="chip">datasets</span><span class="chip">pytest</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/ellakonan41/llm_pii_anonymizer_fr">Voir le code →</a>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3>AskMyDoc : assistant documentaire par IA</h3>
+          <span class="tag">LLM · RAG</span>
+        </div>
+        <p>
+          Un assistant qui répond aux questions d'un utilisateur sur ses documents PDF, en citant
+          les pages sources.
+        </p>
+        <div class="result">Bonne page retrouvée pour 20 questions sur 20, contre 18 sur 20 au départ</div>
+        <ul>
+          <li>Pipeline RAG : découpage en passages, embeddings, base vectorielle, génération par LLM.</li>
+          <li>Jeu d'évaluation de 24 questions pour comparer objectivement plusieurs réglages de recherche.</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">OpenAI API</span><span class="chip">Chroma</span><span class="chip">Streamlit</span><span class="chip">Python</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/ellakonan41/askmydoc-rag">Voir le code →</a>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3>Détection de fraude bancaire en temps réel</h3>
+          <span class="tag">Machine learning · MLOps</span>
+        </div>
+        <p>
+          Un système complet de détection de fraude, du jeu de données brut à une API en production
+          avec monitoring, sur 284 807 transactions dont seulement 0,17 % de fraudes.
+        </p>
+        <div class="result">Précision 84 % · Rappel 88 % · environ 34 ms par requête</div>
+        <ul>
+          <li>Gestion du déséquilibre extrême et choix du seuil de décision selon le coût des erreurs.</li>
+          <li>API de scoring avec cache, conteneurisation et tableau de bord de monitoring.</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">XGBoost</span><span class="chip">scikit-learn</span><span class="chip">FastAPI</span>
+          <span class="chip">Redis</span><span class="chip">Docker</span><span class="chip">Prometheus</span><span class="chip">Grafana</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/ellakonan41/credit_card_fraud_detection">Voir le code →</a>
+          <a href="https://credit-card-fraud-detection-dkft.onrender.com">Démo en ligne →</a>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3>Prédiction du départ de clients (churn)</h3>
+          <span class="tag">Machine learning · MLOps</span>
+        </div>
+        <p>
+          Identifier les clients d'un opérateur télécom à risque de départ, et expliquer pour chacun
+          les facteurs qui augmentent ce risque.
+        </p>
+        <div class="result">Plus de 80 % des clients à risque détectés</div>
+        <ul>
+          <li>Modèle XGBoost et explication de chaque prédiction avec SHAP.</li>
+          <li>API et tableau de bord métier déployés, tests et intégration continue.</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">XGBoost</span><span class="chip">SHAP</span><span class="chip">FastAPI</span>
+          <span class="chip">Streamlit</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/ellakonan41/churn_prediction">Voir le code →</a>
+          <a href="https://churn-custormer-pred.streamlit.app/">Tableau de bord →</a>
+        </div>
+      </article>
+
+      <article class="project">
+        <div class="project-head">
+          <h3>Job Market Intelligence</h3>
+          <span class="tag">Agent IA · Automatisation</span>
+        </div>
+        <p>
+          Un agent IA qui répond en langage naturel à des questions sur le marché de l'emploi, à
+          partir d'offres réelles collectées et structurées automatiquement.
+        </p>
+        <ul>
+          <li>Collecte et stockage automatisés des offres d'emploi dans une base de données.</li>
+          <li>Agent qui traduit une question en requête SQL, puis génère un rapport d'analyse.</li>
+        </ul>
+        <div class="stack">
+          <span class="chip">n8n</span><span class="chip">PostgreSQL</span><span class="chip">OpenAI GPT</span><span class="chip">Power BI</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/ellakonan41/job-market-intelligence-automation">Voir le code →</a>
+        </div>
+      </article>
+    </section>
+
+    <section id="parcours">
+      <h2>Parcours</h2>
+
+      <div class="timeline-item">
+        <div class="when">Avril 2025 – Mai 2026</div>
+        <div class="what">
+          <h3>Ingénieure IA · CETIA</h3>
+          <p>
+            Vision par ordinateur pour le tri des textiles et des chaussures en vue de leur recyclage :
+            fine-tuning de modèles pré-entraînés (F1-score de 90 % sur le type de chaussures),
+            détection de logos, évaluation en conditions réelles et mise en production.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="when">Mars – Août 2023</div>
+        <div class="what">
+          <h3>Data Scientist · FuturAfric IA</h3>
+          <p>
+            Système de reconnaissance faciale en temps réel pour automatiser le suivi des présences,
+            intégré à une application web via une API.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="when">Formation</div>
+        <div class="what">
+          <h3>Master Big Data et Intelligence Artificielle · ESTIA</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="competences">
+      <h2>Compétences</h2>
+      <div class="skills">
+        <div class="skill-group">
+          <h3>LLM et deep learning</h3>
+          <p>PyTorch, Hugging Face (transformers, datasets, trl, peft), LoRA, SFT, DPO, RAG, timm, vision par ordinateur</p>
+        </div>
+        <div class="skill-group">
+          <h3>Machine learning et données</h3>
+          <p>scikit-learn, XGBoost, SHAP, pandas, SQL, PostgreSQL, préparation et évaluation de données</p>
+        </div>
+        <div class="skill-group">
+          <h3>Mise en production</h3>
+          <p>FastAPI, Docker, GitHub Actions, Prometheus, Grafana, Streamlit, pytest, Git, Linux</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Ella Konan · <a href="https://github.com/ellakonan41">github.com/ellakonan41</a>
+    </footer>
+
+  </div>
+</body>
+</html>
