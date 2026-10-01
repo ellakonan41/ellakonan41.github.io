@@ -34,6 +34,8 @@
       }
     }
     * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    section { scroll-margin-top: 64px; }
     body {
       margin: 0;
       background: var(--bg);
@@ -46,7 +48,19 @@
     a:hover { text-decoration: underline; }
     .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
 
-    header { padding: 72px 0 40px; }
+    nav {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 56px; }
+    .nav-name { font-weight: 700; color: var(--text); }
+    .nav-links { display: flex; gap: 18px; font-size: 0.93rem; font-weight: 500; }
+    .nav-links a { color: var(--muted); }
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+    header { padding: 56px 0 40px; }
     .name { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
     .role { font-size: 1.15rem; color: var(--accent); font-weight: 600; margin: 6px 0 18px; }
     .intro { max-width: 680px; color: var(--muted); font-size: 1.05rem; margin: 0 0 24px; }
@@ -106,14 +120,30 @@
 
     footer { padding: 40px 0 56px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--border); margin-top: 24px; }
 
+    .contact-links { display: flex; flex-wrap: wrap; gap: 10px; }
+
     @media (max-width: 600px) {
-      header { padding: 48px 0 28px; }
+      .nav-name { display: none; }
+      nav .wrap { justify-content: center; }
+      header { padding: 36px 0 28px; }
       .project { padding: 18px; }
       .timeline-item { grid-template-columns: 1fr; gap: 4px; }
     }
   </style>
 </head>
 <body>
+  <nav>
+    <div class="wrap">
+      <a class="nav-name" href="#">Ella Konan</a>
+      <div class="nav-links">
+        <a href="#projets">Projets</a>
+        <a href="#parcours">Parcours</a>
+        <a href="#competences">Compétences</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
   <div class="wrap">
 
     <header>
@@ -126,8 +156,8 @@
       </p>
       <div class="links">
         <a class="btn primary" href="https://github.com/ellakonan41">GitHub</a>
-        <a class="btn" href="#projets">Projets</a>
-        <a class="btn" href="#parcours">Parcours</a>
+        <a class="btn" href="https://www.linkedin.com/in/ella-ange-konan-556412213/">LinkedIn</a>
+        <a class="btn" href="mailto:ange.konanella@gmail.com">Me contacter</a>
       </div>
     </header>
 
@@ -304,8 +334,17 @@
       </div>
     </section>
 
+    <section id="contact">
+      <h2>Contact</h2>
+      <div class="contact-links">
+        <a class="btn primary" href="mailto:ange.konanella@gmail.com">ange.konanella@gmail.com</a>
+        <a class="btn" href="https://www.linkedin.com/in/ella-ange-konan-556412213/">LinkedIn</a>
+        <a class="btn" href="https://github.com/ellakonan41">GitHub</a>
+      </div>
+    </section>
+
     <footer>
-      Ella Konan · <a href="https://github.com/ellakonan41">github.com/ellakonan41</a>
+      Ella Konan · Ingénieure IA
     </footer>
 
   </div>
