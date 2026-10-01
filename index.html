@@ -58,7 +58,7 @@
     .nav-name { font-weight: 700; color: var(--text); }
     .nav-links { display: flex; gap: 18px; font-size: 0.93rem; font-weight: 500; }
     .nav-links a { color: var(--muted); }
-    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); text-decoration: none; }
 
     header { padding: 56px 0 40px; }
     .name { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
@@ -121,6 +121,8 @@
     footer { padding: 40px 0 56px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--border); margin-top: 24px; }
 
     .contact-links { display: flex; flex-wrap: wrap; gap: 10px; }
+    /* Espace sous la dernière section : chaque lien du menu peut l'amener en haut de l'écran. */
+    #contact { min-height: calc(100vh - 160px); }
 
     @media (max-width: 600px) {
       .nav-name { display: none; }
@@ -148,11 +150,12 @@
 
     <header>
       <h1 class="name">Ella Konan</h1>
-      <p class="role">Ingénieure IA · Deep learning et LLM</p>
+      <p class="role">Ingénieure IA · Data Science et Machine Learning</p>
       <p class="intro">
-        Diplômée d'un master en Big Data et Intelligence Artificielle (ESTIA), je conçois des modèles
-        de la préparation des données jusqu'à la mise en production. Je m'intéresse particulièrement
-        à l'entraînement des modèles de langage et à leur évaluation rigoureuse.
+        Diplômée d'un master en Big Data et Intelligence Artificielle (ESTIA), je conçois des
+        solutions d'IA de bout en bout : préparation des données, modélisation, évaluation et mise
+        en production. Mon expérience couvre la vision par ordinateur, le machine learning, les
+        modèles de langage (LLM) et le MLOps.
       </p>
       <div class="links">
         <a class="btn primary" href="https://github.com/ellakonan41">GitHub</a>
@@ -336,6 +339,10 @@
 
     <section id="contact">
       <h2>Contact</h2>
+      <p class="intro">
+        Ouverte aux opportunités en intelligence artificielle, data science et machine learning.
+        N'hésitez pas à me contacter.
+      </p>
       <div class="contact-links">
         <a class="btn primary" href="mailto:ange.konanella@gmail.com">ange.konanella@gmail.com</a>
         <a class="btn" href="https://www.linkedin.com/in/ella-ange-konan-556412213/">LinkedIn</a>
@@ -348,5 +355,20 @@
     </footer>
 
   </div>
+
+  <script>
+    // Met en évidence, dans le menu, la section en cours de lecture.
+    const liens = document.querySelectorAll(".nav-links a");
+    const sections = [...liens].map(a => document.querySelector(a.getAttribute("href")));
+    function majLienActif() {
+      let courante = null;
+      for (const s of sections) {
+        if (s.getBoundingClientRect().top <= 120) courante = s;
+      }
+      liens.forEach(a => a.classList.toggle("active", courante && a.getAttribute("href") === "#" + courante.id));
+    }
+    window.addEventListener("scroll", majLienActif, { passive: true });
+    majLienActif();
+  </script>
 </body>
 </html>
