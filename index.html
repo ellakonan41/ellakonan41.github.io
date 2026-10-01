@@ -2,139 +2,167 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Ella Konan · Ingénieure IA</title>
-  <meta name="description" content="Portfolio d'Ella Konan, ingénieure IA : fine-tuning de LLM, RAG, machine learning et mise en production.">
+  <meta name="description" content="Portfolio d'Ella Konan, ingénieure IA : machine learning, vision par ordinateur, modèles de langage et mise en production.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    /* Mise en page : une colonne éditoriale alignée à gauche ; chaque projet est une ligne
+       « description | résultat chiffré », séparée par un filet, comme un rapport d'expérience. */
     :root {
-      --bg: #f7f7f5;
+      --paper: #f4f5f7;
       --surface: #ffffff;
-      --text: #1c1c1f;
-      --muted: #5f6068;
-      --border: #e4e4e0;
-      --accent: #2f5bd3;
-      --accent-soft: #e8eefc;
-      --highlight: #0f7a55;
-      --highlight-soft: #e3f4ec;
+      --ink: #13161d;
+      --ink-soft: #4d5361;
+      --rule: #d9dce3;
+      --accent: #0b6b74;
+      --accent-wash: #e1f0f1;
+      --on-accent: #ffffff;
+      --font-display: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+      --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+      --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
     }
     @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #121315;
-        --surface: #1b1c1f;
-        --text: #ececee;
-        --muted: #a3a4ab;
-        --border: #2c2d31;
-        --accent: #8aa8ff;
-        --accent-soft: #1f2840;
-        --highlight: #5fd3a2;
-        --highlight-soft: #16302a;
+      :root:not([data-theme="light"]) {
+        --paper: #0f1217;
+        --surface: #161a21;
+        --ink: #e9ebef;
+        --ink-soft: #9aa1ae;
+        --rule: #272c35;
+        --accent: #5cc6cf;
+        --accent-wash: #15292d;
+        --on-accent: #0f1217;
+        color-scheme: dark;
       }
     }
+    :root[data-theme="dark"] {
+      --paper: #0f1217;
+      --surface: #161a21;
+      --ink: #e9ebef;
+      --ink-soft: #9aa1ae;
+      --rule: #272c35;
+      --accent: #5cc6cf;
+      --accent-wash: #15292d;
+      --on-accent: #0f1217;
+      color-scheme: dark;
+    }
+
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    section { scroll-margin-top: 64px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
     body {
       margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-size: 1rem;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
     }
-    a { color: var(--accent); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .wrap { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+    a { color: var(--accent); }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+    .wrap { max-width: 1040px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
 
+    /* Barre de navigation */
     nav {
-      position: sticky; top: 0; z-index: 10;
-      background: color-mix(in srgb, var(--bg) 88%, transparent);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
+      position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+      background: color-mix(in srgb, var(--paper) 90%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--rule);
     }
-    nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 56px; }
-    .nav-name { font-weight: 700; color: var(--text); }
-    .nav-links { display: flex; gap: 18px; font-size: 0.93rem; font-weight: 500; }
-    .nav-links a { color: var(--muted); }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent); text-decoration: none; }
+    nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 58px; }
+    .nav-name { font-family: var(--font-display); font-weight: 800; font-size: 1.05rem; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; }
+    .nav-links { display: flex; gap: clamp(14px, 3vw, 28px); font-size: 0.92rem; font-weight: 500; }
+    .nav-links a { color: var(--ink-soft); text-decoration: none; padding-block: 4px; border-bottom: 2px solid transparent; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); border-bottom-color: var(--accent); }
 
-    header { padding: 56px 0 40px; }
-    .name { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; letter-spacing: -0.02em; margin: 0; }
-    .role { font-size: 1.15rem; color: var(--accent); font-weight: 600; margin: 6px 0 18px; }
-    .intro { max-width: 680px; color: var(--muted); font-size: 1.05rem; margin: 0 0 24px; }
-    .links { display: flex; flex-wrap: wrap; gap: 10px; }
+    section { scroll-margin-top: 72px; padding-block: clamp(48px, 8vw, 88px); border-top: 1px solid var(--rule); }
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.78rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin: 0 0 28px;
+    }
+
+    /* En-tête */
+    .hero { padding-block: clamp(56px, 10vw, 112px) clamp(48px, 8vw, 88px); display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 72px); align-items: end; }
+    .hero h1 {
+      font-family: var(--font-display); font-weight: 800; letter-spacing: -0.035em;
+      font-size: clamp(2.8rem, 8vw, 5.4rem); line-height: 0.95; margin: 0 0 20px;
+      text-wrap: balance;
+    }
+    .role { font-family: var(--font-mono); font-size: 0.95rem; color: var(--accent); margin: 0 0 22px; }
+    .intro { max-width: 60ch; color: var(--ink-soft); font-size: 1.08rem; margin: 0 0 28px; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 9px 16px; border-radius: 8px; font-weight: 500; font-size: 0.95rem;
-      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      font: 500 0.95rem var(--font-body); padding: 10px 18px; border-radius: 6px; cursor: pointer;
+      border: 1px solid var(--ink); color: var(--ink); background: transparent;
     }
-    .btn:hover { border-color: var(--accent); text-decoration: none; }
-    .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+    .btn:hover { background: var(--ink); color: var(--paper); }
+    .btn.solid { background: var(--ink); color: var(--paper); }
+    .btn.solid:hover { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
 
-    section { padding: 32px 0; }
-    h2 {
-      font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em;
-      color: var(--muted); font-weight: 600; margin: 0 0 20px;
-    }
+    /* Repères chiffrés de l'en-tête */
+    .figures { border-top: 2px solid var(--ink); }
+    .figure { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 14px; align-items: baseline; padding-block: 14px; border-bottom: 1px solid var(--rule); }
+    .figure .num { font-family: var(--font-display); font-weight: 700; font-size: 1.9rem; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+    .figure .what { font-size: 0.9rem; color: var(--ink-soft); line-height: 1.4; }
 
-    .project {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
-      padding: 24px; margin-bottom: 18px;
-    }
-    .project.featured { border-color: var(--accent); }
-    .project-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px; }
-    .project h3 { margin: 0; font-size: 1.2rem; letter-spacing: -0.01em; }
-    .tag {
-      font-size: 0.75rem; font-weight: 600; padding: 3px 10px; border-radius: 999px;
-      background: var(--accent-soft); color: var(--accent); white-space: nowrap;
-    }
-    .project p { margin: 10px 0 0; color: var(--muted); }
-    .result {
-      margin: 14px 0 0; padding: 10px 14px; border-radius: 8px;
-      background: var(--highlight-soft); color: var(--highlight); font-weight: 600; font-size: 0.95rem;
-    }
-    .project ul { margin: 12px 0 0; padding-left: 20px; color: var(--muted); }
+    /* Projets */
+    .project { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(20px, 5vw, 56px); padding-block: 36px; border-top: 1px solid var(--rule); }
+    .project:first-of-type { border-top: none; padding-top: 0; }
+    .kind { font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft); margin: 0 0 8px; letter-spacing: 0.04em; }
+    .project h3 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.35rem, 2.6vw, 1.7rem); letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 12px; text-wrap: balance; }
+    .project p { margin: 0 0 12px; color: var(--ink-soft); max-width: 62ch; }
+    .project ul { margin: 0 0 16px; padding-left: 18px; color: var(--ink-soft); max-width: 62ch; }
     .project li { margin: 4px 0; }
-    .stack { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 16px; }
-    .chip {
-      font-size: 0.78rem; padding: 3px 9px; border-radius: 6px;
-      border: 1px solid var(--border); color: var(--muted);
+    .project-links { display: flex; flex-wrap: wrap; gap: 20px; font-weight: 500; }
+    .project-links a { text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+    .result { align-self: start; }
+    .result .num { font-family: var(--font-display); font-weight: 800; font-size: clamp(2.4rem, 5vw, 3.4rem); line-height: 1; letter-spacing: -0.03em; color: var(--accent); font-variant-numeric: tabular-nums; }
+    .result .label { margin: 8px 0 18px; font-size: 0.92rem; color: var(--ink-soft); line-height: 1.45; }
+    .stack { display: flex; flex-wrap: wrap; gap: 6px; }
+    .stack span { font-family: var(--font-mono); font-size: 0.74rem; padding: 3px 8px; border-radius: 4px; background: var(--accent-wash); color: var(--ink); }
+    .anon { font-family: var(--font-mono); font-size: 0.82rem; background: var(--surface); border: 1px solid var(--rule); border-radius: 6px; padding: 12px 14px; margin: 0 0 16px; color: var(--ink-soft); line-height: 1.7; overflow-wrap: anywhere; }
+    .anon .tag { background: var(--ink); color: var(--paper); padding: 1px 5px; border-radius: 3px; }
+
+    /* Parcours */
+    .entry { display: grid; grid-template-columns: 11rem minmax(0, 1fr); gap: 24px; padding-block: 22px; border-top: 1px solid var(--rule); }
+    .entry:first-of-type { border-top: none; padding-top: 0; }
+    .when { font-family: var(--font-mono); font-size: 0.85rem; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+    .entry h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.2rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+    .entry p { margin: 0; color: var(--ink-soft); max-width: 64ch; }
+
+    /* Compétences */
+    .skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 4vw, 48px); }
+    .skills h3 { font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; margin: 0 0 10px; padding-bottom: 10px; border-bottom: 2px solid var(--ink); }
+    .skills p { margin: 0; color: var(--ink-soft); font-size: 0.95rem; }
+
+    /* Contact */
+    #contact { min-height: calc(100vh - 150px); }
+    .contact-lead { color: var(--ink-soft); max-width: 56ch; margin: 0 0 24px; font-size: 1.05rem; }
+    .email-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin: 0 0 28px; }
+    .email { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.4rem, 4.5vw, 2.4rem); letter-spacing: -0.02em; color: var(--ink); overflow-wrap: anywhere; user-select: all; }
+    .copy-state { font-family: var(--font-mono); font-size: 0.85rem; color: var(--accent); min-width: 6rem; }
+
+    footer { padding-block: 28px 40px; border-top: 1px solid var(--rule); color: var(--ink-soft); font-size: 0.88rem; }
+
+    @media (max-width: 820px) {
+      .hero, .project { grid-template-columns: minmax(0, 1fr); }
+      .skills { grid-template-columns: minmax(0, 1fr); }
     }
-    .project-links { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; font-weight: 500; font-size: 0.95rem; }
-
-    .timeline-item {
-      display: grid; grid-template-columns: 170px 1fr; gap: 16px;
-      padding: 16px 0; border-top: 1px solid var(--border);
-    }
-    .timeline-item:first-of-type { border-top: none; padding-top: 0; }
-    .when { color: var(--muted); font-size: 0.9rem; }
-    .what h3 { margin: 0; font-size: 1.05rem; }
-    .what p { margin: 4px 0 0; color: var(--muted); }
-
-    .skills { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
-    .skill-group { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
-    .skill-group h3 { margin: 0 0 8px; font-size: 0.95rem; }
-    .skill-group p { margin: 0; color: var(--muted); font-size: 0.93rem; }
-
-    footer { padding: 40px 0 56px; color: var(--muted); font-size: 0.9rem; border-top: 1px solid var(--border); margin-top: 24px; }
-
-    .contact-links { display: flex; flex-wrap: wrap; gap: 10px; }
-    /* Espace sous la dernière section : chaque lien du menu peut l'amener en haut de l'écran. */
-    #contact { min-height: calc(100vh - 160px); }
-
-    @media (max-width: 600px) {
+    @media (max-width: 560px) {
       .nav-name { display: none; }
       nav .wrap { justify-content: center; }
-      header { padding: 36px 0 28px; }
-      .project { padding: 18px; }
-      .timeline-item { grid-template-columns: 1fr; gap: 4px; }
+      .entry { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+      .figure { grid-template-columns: 6rem minmax(0, 1fr); }
     }
   </style>
 </head>
 <body>
-  <nav>
+  <nav aria-label="Navigation principale">
     <div class="wrap">
       <a class="nav-name" href="#">Ella Konan</a>
       <div class="nav-links">
@@ -146,163 +174,174 @@
     </div>
   </nav>
 
-  <div class="wrap">
+  <main class="wrap">
+    <header class="hero">
+      <div>
+        <h1>Ella Konan</h1>
+        <p class="role">Ingénieure IA · Data Science et Machine Learning</p>
+        <p class="intro">
+          Diplômée d'un master en Big Data et Intelligence Artificielle (ESTIA), je conçois des
+          solutions d'IA de bout en bout : préparation des données, modélisation, évaluation et mise
+          en production. Mon expérience couvre la vision par ordinateur, le machine learning, les
+          modèles de langage (LLM) et le MLOps.
+        </p>
+        <div class="actions">
+          <a class="btn solid" href="https://github.com/ellakonan41">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/ella-ange-konan-556412213/">LinkedIn</a>
+        </div>
+      </div>
 
-    <header>
-      <h1 class="name">Ella Konan</h1>
-      <p class="role">Ingénieure IA · Data Science et Machine Learning</p>
-      <p class="intro">
-        Diplômée d'un master en Big Data et Intelligence Artificielle (ESTIA), je conçois des
-        solutions d'IA de bout en bout : préparation des données, modélisation, évaluation et mise
-        en production. Mon expérience couvre la vision par ordinateur, le machine learning, les
-        modèles de langage (LLM) et le MLOps.
-      </p>
-      <div class="links">
-        <a class="btn primary" href="https://github.com/ellakonan41">GitHub</a>
-        <a class="btn" href="https://www.linkedin.com/in/ella-ange-konan-556412213/">LinkedIn</a>
-        <a class="btn" href="mailto:ange.konanella@gmail.com">Me contacter</a>
+      <div class="figures" aria-label="Résultats obtenus sur mes projets">
+        <div class="figure"><span class="num">90 %</span><span class="what">F1-score d'un modèle de vision mis en production (CETIA)</span></div>
+        <div class="figure"><span class="num">97 %</span><span class="what">de données personnelles masquées par un LLM fine-tuné</span></div>
+        <div class="figure"><span class="num">88 %</span><span class="what">de fraudes bancaires détectées, en 34 ms par requête</span></div>
+        <div class="figure"><span class="num">20/20</span><span class="what">questions correctement sourcées par un assistant RAG</span></div>
       </div>
     </header>
 
     <section id="projets">
-      <h2>Projets</h2>
+      <p class="section-label">Projets</p>
 
-      <article class="project featured">
-        <div class="project-head">
-          <h3>Anonymisation RGPD de textes par fine-tuning d'un LLM</h3>
-          <span class="tag">LLM · SFT · DPO</span>
+      <article class="project">
+        <div>
+          <p class="kind">LLM · fine-tuning SFT et DPO</p>
+          <h3>Anonymisation RGPD de textes par un LLM</h3>
+          <p>
+            Un petit modèle de langage entraîné à masquer les données personnelles de textes
+            français, en local, pour ne jamais exposer de données sensibles à un service externe.
+          </p>
+          <div class="anon" aria-label="Exemple d'anonymisation">
+            Appelez <span class="tag">[GIVENNAME]</span> <span class="tag">[SURNAME]</span> au <span class="tag">[TELEPHONENUM]</span> avant <span class="tag">[TIME]</span>.
+          </div>
+          <ul>
+            <li>Préparation de 90 000 exemples et métriques sur mesure (protection, préservation, fidélité).</li>
+            <li>Fine-tuning avec LoRA, en n'entraînant que 1,75 % des paramètres.</li>
+            <li>Alignement DPO puis analyse des sorties pour retenir le modèle le plus fiable.</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/ellakonan41/llm_pii_anonymizer_fr">Voir le code</a>
+          </div>
         </div>
-        <p>
-          Entraîner un petit modèle de langage (Qwen2.5-0.5B) à masquer les données personnelles
-          (noms, téléphones, adresses) dans des textes français, en local, pour ne jamais exposer
-          de données sensibles à un service externe.
-        </p>
-        <div class="result">97 % des données personnelles masquées sur des textes réalistes, contre 25 % avant entraînement</div>
-        <ul>
-          <li>Préparation de 90 000 exemples et conception de métriques sur mesure (protection, préservation, fidélité du texte).</li>
-          <li>Fine-tuning SFT avec LoRA, en n'entraînant que 1,75 % des paramètres, sur GPU.</li>
-          <li>Jeu de test de 50 textes réalistes (médical, RH, administratif) pour mesurer la généralisation.</li>
-          <li>Alignement DPO, puis analyse des sorties : une sur-optimisation détectée conduit à retenir le modèle le plus fiable.</li>
-        </ul>
-        <div class="stack">
-          <span class="chip">PyTorch</span><span class="chip">transformers</span><span class="chip">trl</span>
-          <span class="chip">peft / LoRA</span><span class="chip">datasets</span><span class="chip">pytest</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/ellakonan41/llm_pii_anonymizer_fr">Voir le code →</a>
+        <div class="result">
+          <div class="num">97 %</div>
+          <p class="label">des données personnelles masquées sur des textes réalistes, contre 25 % avant entraînement</p>
+          <div class="stack"><span>PyTorch</span><span>transformers</span><span>trl</span><span>peft</span><span>LoRA</span><span>pytest</span></div>
         </div>
       </article>
 
       <article class="project">
-        <div class="project-head">
-          <h3>AskMyDoc : assistant documentaire par IA</h3>
-          <span class="tag">LLM · RAG</span>
-        </div>
-        <p>
-          Un assistant qui répond aux questions d'un utilisateur sur ses documents PDF, en citant
-          les pages sources.
-        </p>
-        <div class="result">Bonne page retrouvée pour 20 questions sur 20, contre 18 sur 20 au départ</div>
-        <ul>
-          <li>Pipeline RAG : découpage en passages, embeddings, base vectorielle, génération par LLM.</li>
-          <li>Jeu d'évaluation de 24 questions pour comparer objectivement plusieurs réglages de recherche.</li>
-        </ul>
-        <div class="stack">
-          <span class="chip">OpenAI API</span><span class="chip">Chroma</span><span class="chip">Streamlit</span><span class="chip">Python</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/ellakonan41/askmydoc-rag">Voir le code →</a>
-        </div>
-      </article>
-
-      <article class="project">
-        <div class="project-head">
+        <div>
+          <p class="kind">Machine learning · MLOps</p>
           <h3>Détection de fraude bancaire en temps réel</h3>
-          <span class="tag">Machine learning · MLOps</span>
+          <p>
+            Un système complet, du jeu de données brut à une API en production avec monitoring,
+            sur 284 807 transactions dont seulement 0,17 % de fraudes.
+          </p>
+          <ul>
+            <li>Gestion du déséquilibre extrême et seuil de décision choisi selon le coût des erreurs.</li>
+            <li>API de scoring avec cache, conteneurisation et tableau de bord de monitoring.</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/ellakonan41/credit_card_fraud_detection">Voir le code</a>
+            <a href="https://credit-card-fraud-detection-dkft.onrender.com">Démo en ligne</a>
+          </div>
         </div>
-        <p>
-          Un système complet de détection de fraude, du jeu de données brut à une API en production
-          avec monitoring, sur 284 807 transactions dont seulement 0,17 % de fraudes.
-        </p>
-        <div class="result">Précision 84 % · Rappel 88 % · environ 34 ms par requête</div>
-        <ul>
-          <li>Gestion du déséquilibre extrême et choix du seuil de décision selon le coût des erreurs.</li>
-          <li>API de scoring avec cache, conteneurisation et tableau de bord de monitoring.</li>
-        </ul>
-        <div class="stack">
-          <span class="chip">XGBoost</span><span class="chip">scikit-learn</span><span class="chip">FastAPI</span>
-          <span class="chip">Redis</span><span class="chip">Docker</span><span class="chip">Prometheus</span><span class="chip">Grafana</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/ellakonan41/credit_card_fraud_detection">Voir le code →</a>
-          <a href="https://credit-card-fraud-detection-dkft.onrender.com">Démo en ligne →</a>
-        </div>
-      </article>
-
-      <article class="project">
-        <div class="project-head">
-          <h3>Prédiction du départ de clients (churn)</h3>
-          <span class="tag">Machine learning · MLOps</span>
-        </div>
-        <p>
-          Identifier les clients d'un opérateur télécom à risque de départ, et expliquer pour chacun
-          les facteurs qui augmentent ce risque.
-        </p>
-        <div class="result">Plus de 80 % des clients à risque détectés</div>
-        <ul>
-          <li>Modèle XGBoost et explication de chaque prédiction avec SHAP.</li>
-          <li>API et tableau de bord métier déployés, tests et intégration continue.</li>
-        </ul>
-        <div class="stack">
-          <span class="chip">XGBoost</span><span class="chip">SHAP</span><span class="chip">FastAPI</span>
-          <span class="chip">Streamlit</span><span class="chip">Docker</span><span class="chip">GitHub Actions</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/ellakonan41/churn_prediction">Voir le code →</a>
-          <a href="https://churn-custormer-pred.streamlit.app/">Tableau de bord →</a>
+        <div class="result">
+          <div class="num">88 %</div>
+          <p class="label">des fraudes détectées (précision 84 %), en environ 34 ms par requête</p>
+          <div class="stack"><span>XGBoost</span><span>FastAPI</span><span>Redis</span><span>Docker</span><span>Prometheus</span><span>Grafana</span></div>
         </div>
       </article>
 
       <article class="project">
-        <div class="project-head">
+        <div>
+          <p class="kind">LLM · RAG</p>
+          <h3>AskMyDoc : assistant documentaire</h3>
+          <p>
+            Un assistant qui répond aux questions d'un utilisateur sur ses documents PDF, en citant
+            les pages sources.
+          </p>
+          <ul>
+            <li>Pipeline RAG : découpage en passages, embeddings, base vectorielle, génération par LLM.</li>
+            <li>Jeu d'évaluation de 24 questions pour comparer plusieurs réglages de recherche.</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/ellakonan41/askmydoc-rag">Voir le code</a>
+          </div>
+        </div>
+        <div class="result">
+          <div class="num">20/20</div>
+          <p class="label">questions pour lesquelles la bonne page est retrouvée, contre 18/20 au départ</p>
+          <div class="stack"><span>OpenAI API</span><span>Chroma</span><span>Streamlit</span></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div>
+          <p class="kind">Machine learning · MLOps</p>
+          <h3>Prédiction du départ de clients</h3>
+          <p>
+            Identifier les clients d'un opérateur télécom à risque de départ, et expliquer pour
+            chacun les facteurs qui augmentent ce risque.
+          </p>
+          <ul>
+            <li>Modèle XGBoost et explication de chaque prédiction avec SHAP.</li>
+            <li>API et tableau de bord métier déployés, tests et intégration continue.</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/ellakonan41/churn_prediction">Voir le code</a>
+            <a href="https://churn-custormer-pred.streamlit.app/">Tableau de bord</a>
+          </div>
+        </div>
+        <div class="result">
+          <div class="num">&gt; 80 %</div>
+          <p class="label">des clients à risque détectés (rappel)</p>
+          <div class="stack"><span>XGBoost</span><span>SHAP</span><span>FastAPI</span><span>Streamlit</span><span>GitHub Actions</span></div>
+        </div>
+      </article>
+
+      <article class="project">
+        <div>
+          <p class="kind">Agent IA · automatisation</p>
           <h3>Job Market Intelligence</h3>
-          <span class="tag">Agent IA · Automatisation</span>
+          <p>
+            Un agent IA qui répond en langage naturel à des questions sur le marché de l'emploi, à
+            partir d'offres réelles collectées et structurées automatiquement.
+          </p>
+          <ul>
+            <li>Collecte et stockage automatisés des offres d'emploi dans une base de données.</li>
+            <li>Agent qui traduit une question en requête SQL, puis rédige un rapport d'analyse.</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://github.com/ellakonan41/job-market-intelligence-automation">Voir le code</a>
+          </div>
         </div>
-        <p>
-          Un agent IA qui répond en langage naturel à des questions sur le marché de l'emploi, à
-          partir d'offres réelles collectées et structurées automatiquement.
-        </p>
-        <ul>
-          <li>Collecte et stockage automatisés des offres d'emploi dans une base de données.</li>
-          <li>Agent qui traduit une question en requête SQL, puis génère un rapport d'analyse.</li>
-        </ul>
-        <div class="stack">
-          <span class="chip">n8n</span><span class="chip">PostgreSQL</span><span class="chip">OpenAI GPT</span><span class="chip">Power BI</span>
-        </div>
-        <div class="project-links">
-          <a href="https://github.com/ellakonan41/job-market-intelligence-automation">Voir le code →</a>
+        <div class="result">
+          <p class="label">De la question en langage naturel au rapport d'analyse, sans écrire de SQL</p>
+          <div class="stack"><span>n8n</span><span>PostgreSQL</span><span>OpenAI GPT</span><span>Power BI</span></div>
         </div>
       </article>
     </section>
 
     <section id="parcours">
-      <h2>Parcours</h2>
+      <p class="section-label">Parcours</p>
 
-      <div class="timeline-item">
-        <div class="when">Avril 2025 – Mai 2026</div>
-        <div class="what">
+      <div class="entry">
+        <div class="when">Avr. 2025 – Mai 2026</div>
+        <div>
           <h3>Ingénieure IA · CETIA</h3>
           <p>
             Vision par ordinateur pour le tri des textiles et des chaussures en vue de leur recyclage :
             fine-tuning de modèles pré-entraînés (F1-score de 90 % sur le type de chaussures),
-            détection de logos, évaluation en conditions réelles et mise en production.
+            détection de logos, évaluation en conditions réelles, mise en production et présentation
+            aux clients.
           </p>
         </div>
       </div>
 
-      <div class="timeline-item">
+      <div class="entry">
         <div class="when">Mars – Août 2023</div>
-        <div class="what">
+        <div>
           <h3>Data Scientist · FuturAfric IA</h3>
           <p>
             Système de reconnaissance faciale en temps réel pour automatiser le suivi des présences,
@@ -311,26 +350,27 @@
         </div>
       </div>
 
-      <div class="timeline-item">
+      <div class="entry">
         <div class="when">Formation</div>
-        <div class="what">
+        <div>
           <h3>Master Big Data et Intelligence Artificielle · ESTIA</h3>
+          <p>École d'ingénieurs.</p>
         </div>
       </div>
     </section>
 
     <section id="competences">
-      <h2>Compétences</h2>
+      <p class="section-label">Compétences</p>
       <div class="skills">
-        <div class="skill-group">
-          <h3>LLM et deep learning</h3>
+        <div>
+          <h3>IA et deep learning</h3>
           <p>PyTorch, Hugging Face (transformers, datasets, trl, peft), LoRA, SFT, DPO, RAG, timm, vision par ordinateur</p>
         </div>
-        <div class="skill-group">
+        <div>
           <h3>Machine learning et données</h3>
           <p>scikit-learn, XGBoost, SHAP, pandas, SQL, PostgreSQL, préparation et évaluation de données</p>
         </div>
-        <div class="skill-group">
+        <div>
           <h3>Mise en production</h3>
           <p>FastAPI, Docker, GitHub Actions, Prometheus, Grafana, Streamlit, pytest, Git, Linux</p>
         </div>
@@ -338,34 +378,59 @@
     </section>
 
     <section id="contact">
-      <h2>Contact</h2>
-      <p class="intro">
+      <p class="section-label">Contact</p>
+      <p class="contact-lead">
         Ouverte aux opportunités en intelligence artificielle, data science et machine learning.
-        N'hésitez pas à me contacter.
+        Écrivez-moi à cette adresse :
       </p>
-      <div class="contact-links">
-        <a class="btn primary" href="mailto:ange.konanella@gmail.com">ange.konanella@gmail.com</a>
-        <a class="btn" href="https://www.linkedin.com/in/ella-ange-konan-556412213/">LinkedIn</a>
+      <div class="email-row">
+        <span class="email" id="email">ange.konanella@gmail.com</span>
+        <button class="btn" type="button" id="copier">Copier l'adresse</button>
+        <span class="copy-state" id="etat-copie" aria-live="polite"></span>
+      </div>
+      <div class="actions">
+        <a class="btn solid" href="https://www.linkedin.com/in/ella-ange-konan-556412213/">LinkedIn</a>
         <a class="btn" href="https://github.com/ellakonan41">GitHub</a>
       </div>
     </section>
+  </main>
 
-    <footer>
-      Ella Konan · Ingénieure IA
-    </footer>
-
-  </div>
+  <footer>
+    <div class="wrap">Ella Konan · Ingénieure IA</div>
+  </footer>
 
   <script>
+    // Copie de l'adresse e-mail ; à défaut, sélection du texte pour une copie manuelle.
+    const bouton = document.getElementById("copier");
+    const email = document.getElementById("email");
+    const etat = document.getElementById("etat-copie");
+    function selectionner() {
+      const plage = document.createRange();
+      plage.selectNodeContents(email);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(plage);
+      etat.textContent = "Adresse sélectionnée";
+    }
+    bouton.addEventListener("click", () => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email.textContent.trim())
+          .then(() => { etat.textContent = "Adresse copiée"; })
+          .catch(selectionner);
+      } else {
+        selectionner();
+      }
+    });
+
     // Met en évidence, dans le menu, la section en cours de lecture.
     const liens = document.querySelectorAll(".nav-links a");
     const sections = [...liens].map(a => document.querySelector(a.getAttribute("href")));
     function majLienActif() {
       let courante = null;
       for (const s of sections) {
-        if (s.getBoundingClientRect().top <= 120) courante = s;
+        if (s.getBoundingClientRect().top <= 140) courante = s;
       }
-      liens.forEach(a => a.classList.toggle("active", courante && a.getAttribute("href") === "#" + courante.id));
+      liens.forEach(a => a.classList.toggle("active", !!courante && a.getAttribute("href") === "#" + courante.id));
     }
     window.addEventListener("scroll", majLienActif, { passive: true });
     majLienActif();
