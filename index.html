@@ -114,7 +114,11 @@
     /* Projets */
     .project { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: clamp(20px, 5vw, 56px); padding-block: 36px; border-top: 1px solid var(--rule); }
     .project:first-of-type { border-top: none; padding-top: 0; }
-    .kind { font-family: var(--font-mono); font-size: 0.9rem; color: var(--ink-soft); margin: 0 0 8px; letter-spacing: 0.04em; }
+    .kind {
+      display: inline-block; font-family: var(--font-mono); font-size: 0.88rem; font-weight: 500;
+      color: var(--on-accent); background: var(--accent); padding: 4px 12px; border-radius: 4px;
+      margin: 0 0 14px; letter-spacing: 0.02em;
+    }
     .project h3 { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.35rem, 2.6vw, 1.7rem); letter-spacing: -0.02em; line-height: 1.15; margin: 0 0 12px; text-wrap: balance; }
     .project p { margin: 0 0 12px; color: var(--ink-soft); max-width: 62ch; }
     .project ul { margin: 0 0 16px; padding-left: 18px; color: var(--ink-soft); max-width: 62ch; }
